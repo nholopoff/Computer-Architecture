@@ -4,9 +4,13 @@
  * then writes sum and time taken to a cvs file
  *
  * TODO
- * Fine tune the timer and make it compatible with other platforms aside from Windows
- * 	This means transitioning away from QPC for recording time
  * Make the Matrix dimensions customizable
+ * count 1, 2, 3... until end of array
+ * double check that column way works
+ * take time with clock
+ * write to file
+ * create chart
+ * put in word document
  */
 
 #include <stdio.h>

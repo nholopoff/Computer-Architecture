@@ -2,78 +2,83 @@
  * C program to find the sum of an array using column and row methods.
  * It records the time taken to compute the sum in ms
  * then writes sum and time taken to a cvs file
- *
- * TODO
- * Make the Matrix dimensions customizable
- * count 1, 2, 3... until end of array
- * double check that column way works
- * take time with clock
- * write to file
- * create chart
- * put in word document
  */
 
 #include <stdio.h>
 #include <stdlib.h>
-//#include <omp.h>
+#include <time.h>
 
-void writeToFile(int rowSum, int colSum) {
+void makeFile(int rowTime, int colTime) 
+{
 	/* Create .csv file */
 	printf("Creating output file\n");
 	FILE *fp;
-	fp = fopen("output.csv", "w");
-	if (fp == NULL) {
+	fp = fopen("output.csv", "a");
+	if (fp == NULL)
+	{
 		printf("Error creating file\n");
 		exit(1);
 	}
-	
-	/* Write to file */
-	fprintf(fp, "Sum by row: %d\n" 
-		"Sum by column: %d\n", 
-		rowSum, colSum);
+	fprintf(fp, "Row time (nanoseconds): %d,\n", rowTime);
+	fprintf(fp, "Column time (nanoseconds): %d,\n", colTime);
 	fclose(fp);
-	
-	/* Review Console */
-	printf("File successfully created, press any key to escape\n");
-	while(1) {
-		if (getchar())
-			break;
-	}
 }
 
-int main() {
-	/* Populate a series of 8 index arrays sequentially starting from 1-8 */
-	static int rowSum = 0, colSum = 0;
-	
+int main() 
+{
+	static int x = 0, y = 0, rowSum = 0, colSum = 0;
+	int a, b, i, count = 0; 
+	long long unsigned int rowTime, colTime;
+	struct timespec start, end;
+	clockid_t id = CLOCK_MONOTONIC;
+
+	for (i = 0; i < 10; i++)
+	{
 	/* Make two dimensional array */
-	static int matrix[8][8] = { 
-	{1, 2, 3, 4, 5, 6, 7, 8} , 
-	{9, 10, 11, 12, 13, 14, 15, 16} , 
-	{17, 18, 19, 20, 21, 22, 23, 24} , 
-	{25, 26, 27, 28, 29, 30, 31, 32} , 
-	{33, 34, 35, 36, 37, 38, 39, 40} , 
-	{41, 42, 43, 44, 45, 46, 47, 48} , 
-	{49, 50, 51, 52, 53, 54, 55, 56} , 
-	{57, 58, 59, 60, 61, 62, 63, 64} 
-	};
+	printf("Specify 2D Matrix dimensions\n");
+	scanf("%d %d", &x, &y);
+
+	/* Make two dimensional array */
+	int matrix[x][y];
+
+	/* Fill array */
+	for (a = 0; a < x; a++)
+	{
+		for (b = 0; b < y; b++)
+		{
+			count++;
+			matrix[a][b] = count;
+		}
+	}
 	
 	/* Sum the arrays by row */
-	for (int a = 0; a < 8; a++) {
-		for (int b = 0; b < 8; b++) {
+	rowSum = 0;
+	clock_gettime(CLOCK_MONOTONIC, &start);
+	for (a = 0; a < x; a++) 
+	{
+		for (b = 0; b < y; b++) 
+		{
 			rowSum += matrix[a][b];
 		}
 	}
-		
+	clock_gettime(CLOCK_MONOTONIC, &end);
+	rowTime = (int)((end.tv_nsec - start.tv_nsec) + (end.tv_nsec - start.tv_nsec));
+
 	/* Sum the arrays by column */
-	for (int a = 0; a < 8; a++) {
-		for (int b = 0; b < 8; b++) {
+	colSum = 0;
+	clock_gettime(CLOCK_MONOTONIC, &start); 
+	for (a = 0; a < x; a++) 
+	{
+		for (b = 0; b < y; b++) 
+		{
 			colSum += matrix[b][a];
 		}
 	}
-	
-	/* Make .CSV file */
-	writeToFile(rowSum, colSum);
-	
+	clock_gettime(CLOCK_MONOTONIC, &end);
+	colTime = (int)((end.tv_nsec - start.tv_nsec) + (end.tv_nsec - start.tv_nsec));
+
+	makeFile(rowTime, colTime);
+	}
+
 	return 0;
 }
-

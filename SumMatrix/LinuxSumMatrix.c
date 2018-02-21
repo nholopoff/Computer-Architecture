@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-void makeFile(int rowTime, int colTime) 
+void makeFile(double rowTime, double colTime) 
 {
 	/* Create .csv file */
 	printf("Creating output file\n");
@@ -19,9 +19,9 @@ void makeFile(int rowTime, int colTime)
 		printf("Error creating file\n");
 		exit(1);
 	}
-	fprintf(fp, "Row time (nanoseconds): %d", rowTime);
+	fprintf(fp, "%f", rowTime);
 	fprintf(fp, " , ");
-	fprintf(fp, "Column time (nanoseconds): %d\n", colTime);
+	fprintf(fp, "%f\n", colTime);
 	fclose(fp);
 }
 
@@ -29,7 +29,7 @@ int main()
 {
 	static int x = 0, y = 0, rowSum = 0, colSum = 0;
 	int a, b, i, count = 0; 
-	long long unsigned int rowTime, colTime;
+	double rowTime, colTime;
 	struct timespec start, end;
 	clockid_t id = CLOCK_MONOTONIC;
 
@@ -63,7 +63,7 @@ int main()
 		}
 	}
 	clock_gettime(CLOCK_MONOTONIC, &end);
-	rowTime = (int)((end.tv_nsec - start.tv_nsec) + (end.tv_nsec - start.tv_nsec));
+	rowTime = (double)((.000001) * ((end.tv_nsec - start.tv_nsec) + (end.tv_nsec - start.tv_nsec)));
 
 	/* Sum the arrays by column */
 	colSum = 0;
@@ -76,7 +76,7 @@ int main()
 		}
 	}
 	clock_gettime(CLOCK_MONOTONIC, &end);
-	colTime = (int)((end.tv_nsec - start.tv_nsec) + (end.tv_nsec - start.tv_nsec));
+	colTime = (double)((.000001) * ((end.tv_nsec - start.tv_nsec) + (end.tv_nsec - start.tv_nsec)));
 
 	makeFile(rowTime, colTime);
 	}

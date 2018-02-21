@@ -1,10 +1,10 @@
-Row time (nanoseconds): 164938 , Column time (nanoseconds): 153206 
-Row time (nanoseconds): 688996 , Column time (nanoseconds): 642548 
-Row time (nanoseconds): 1619572 , Column time (nanoseconds): 1913586 
-Row time (nanoseconds): 2724104 , Column time (nanoseconds): 3447942 
-Row time (nanoseconds): 4561464 , Column time (nanoseconds): 5829544 
-Row time (nanoseconds): 6162944 , Column time (nanoseconds): 8139492 
-Row time (nanoseconds): 8509094 , Column time (nanoseconds): 11797064 
-Row time (nanoseconds): 11152852 , Column time (nanoseconds): 14359512 
-Row time (nanoseconds): 14244350 , Column time (nanoseconds): 20583164 
-Row time (nanoseconds): 17585764 , Column time (nanoseconds): 33070388 
+0.157946 , 0.196372
+0.622400 , 0.644524
+1.546492 , 2.390758
+2.569556 , 3.714602
+4.283412 , 5.677690
+6.156086 , 8.802692
+8.288110 , 12.281224
+11.557794 , 16.360102
+13.439054 , 14.693536
+16.652070 , 26.231334

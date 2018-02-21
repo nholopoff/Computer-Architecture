@@ -20,7 +20,7 @@ void makeFile(int rowTime, int colTime)
 		exit(1);
 	}
 	fprintf(fp, "Row time (nanoseconds): %d", rowTime);
-	fprintf(fp, ",");
+	fprintf(fp, " , ");
 	fprintf(fp, "Column time (nanoseconds): %d\n", colTime);
 	fclose(fp);
 }

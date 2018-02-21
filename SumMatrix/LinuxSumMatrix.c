@@ -19,8 +19,9 @@ void makeFile(int rowTime, int colTime)
 		printf("Error creating file\n");
 		exit(1);
 	}
-	fprintf(fp, "Row time (nanoseconds): %d,\n", rowTime);
-	fprintf(fp, "Column time (nanoseconds): %d,\n", colTime);
+	fprintf(fp, "Row time (nanoseconds): %d", rowTime);
+	fprintf(fp, ",");
+	fprintf(fp, "Column time (nanoseconds): %d\n", colTime);
 	fclose(fp);
 }
 
